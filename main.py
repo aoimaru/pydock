@@ -24,23 +24,24 @@ def main():
     combinations = {}
     file_paths = [comp for comp in glob.glob(PYTHON_PROJECT, recursive=True) if os.path.isfile(comp) if comp.endswith("Dockerfile")]
     words = []
-    targets = []
-    for file_path in file_paths[:4]:
-        print()
-        print()
-        print()
-        print(file_path)
-        dock = Dockerfile(file_path)
-        contents = dock.get_shell_2()
-        for content in contents:
-            # print()
-            for comp in content:
-                for com in comp:
-                    token = Token(com)
-                    print(token.original)
-                    print(token.types)
-
-
+    file_path = "./python/3.10/bullseye/slim/Dockerfile"
+    dock = Dockerfile(file_path)
+    contents = dock.get_shell_2()
+    for content in contents:
+        for comps in content:
+            print()
+            print("===============================")
+            print("comps", comps)
+            for comp in comps:
+                token = Token(comp)
+                if len(token.original) > 1:
+                    print()
+                    print("original", token.original)
+                    print("extentions", token.extentions)
+                    print("kinds", token.kinds)
+                    print("subs", token.subs)
+            print("===============================")
+            print()
 
 
 
