@@ -194,13 +194,13 @@ class Dockerfile(object):
                         subs.append(an)
                 else:
                     subs.append(an)
-            print()
-            print("命令の中の処理", "->", "できったぽい")
-            print("================")
-            for sub in subs:
-                print(sub)
-            print("================")
-            print()
+            # print()
+            # print("命令の中の処理", "->", "できったぽい")
+            # print("================")
+            # for sub in subs:
+            #     print(sub)
+            # print("================")
+            # print()
 
             res.append(subs)
         return res

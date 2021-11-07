@@ -12,6 +12,7 @@ from prefixspan import PrefixSpan
 
 from src.lib.dockerfiles import Dockerfile
 from src.lib.nlps import NLP
+from src.lib.words import Token
 
 
 
@@ -24,7 +25,7 @@ def main():
     file_paths = [comp for comp in glob.glob(PYTHON_PROJECT, recursive=True) if os.path.isfile(comp) if comp.endswith("Dockerfile")]
     words = []
     targets = []
-    for file_path in file_paths:
+    for file_path in file_paths[:4]:
         print()
         print()
         print()
@@ -34,8 +35,10 @@ def main():
         for content in contents:
             # print()
             for comp in content:
-                # print(comp)
-                pass
+                for com in comp:
+                    token = Token(com)
+                    print(token.original)
+                    print(token.types)
 
 
 
