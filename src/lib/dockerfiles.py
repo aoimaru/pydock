@@ -114,12 +114,12 @@ class Dockerfile(object):
             # content = [cnt for cnt in content if cnt != "NL"]
             comps = []
             comp = []
-            print()
-            print("================")
-            print("コンテンツの中身", "->", "ここはできているっぽい")
-            print("content", content)
-            print("================")
-            print()
+            # print()
+            # print("================")
+            # print("コンテンツの中身", "->", "ここはできているっぽい")
+            # print("content", content)
+            # print("================")
+            # print()
             comps.append(content.pop(0))
             while content:
                 cnt = content.pop(0)
@@ -145,13 +145,13 @@ class Dockerfile(object):
                 else:
                     comp.append(cnt)
 
-            print()
-            print("前後の改行処理", "->", "ここはできているっぽい")
-            print("================")
-            for comp in comps:
-                print("comp", comp)
-            print("================")
-            print()
+            # print()
+            # print("前後の改行処理", "->", "ここはできているっぽい")
+            # print("================")
+            # for comp in comps:
+            #     print("comp", comp)
+            # print("================")
+            # print()
 
             afters = []
             ans = []
@@ -164,13 +164,13 @@ class Dockerfile(object):
                     while afters:
                         ans.append(afters.pop(0))
             
-            print()
-            print("AFTERの順番処理", "->", "OK?")
-            print("================")
-            for an in ans:
-                print("an", an)
-            print("================")
-            print()
+            # print()
+            # print("AFTERの順番処理", "->", "OK?")
+            # print("================")
+            # for an in ans:
+            #     print("an", an)
+            # print("================")
+            # print()
 
             subs = []
             for an in ans:
@@ -194,13 +194,13 @@ class Dockerfile(object):
                         subs.append(an)
                 else:
                     subs.append(an)
-            print()
-            print("命令の中の処理", "->", "できったぽい")
-            print("================")
-            for sub in subs:
-                print(sub)
-            print("================")
-            print()
+            # print()
+            # print("命令の中の処理", "->", "できったぽい")
+            # print("================")
+            # for sub in subs:
+            #     print(sub)
+            # print("================")
+            # print()
 
             res.append(subs)
         return res
