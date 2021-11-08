@@ -378,6 +378,25 @@ class Model(object):
                         comp.append(word)
                 self._runs.append(Req)
 
+        self._shells = []
+        for run in self._runs:
+            self._shells.append([])
+            for shells in run:
+                shells = [shell for shell in shells if shell != "SPACE"]
+                shells = [shell.replace("(", "") for shell in shells]
+                shells = [shell.replace("(", "") for shell in shells]
+                shells = [shell.replace(")", "") for shell in shells]
+                shells = [shell.replace(")", "") for shell in shells]
+                shells = [shell.replace("[", "") for shell in shells]
+                shells = [shell.replace("[", "") for shell in shells]
+                shells = [shell.replace("]", "") for shell in shells]
+                shells = [shell.replace("]", "") for shell in shells]
+
+                shells = [shell.replace("\\n", "BACKNT") for shell in shells]
+
+                shells = [norm(shell) for shell in shells]
+                shells = [shell for shell in shells if shell]
+                self._shells.append(shells)
 
 
     @property
@@ -391,6 +410,10 @@ class Model(object):
     @property
     def runs(self):
         return self._runs
+    
+    @property
+    def shells(self):
+        return self._shells
 
 
 
@@ -403,7 +426,7 @@ def main():
     for run in runs:
         print()
         for shells in run:
-            shells = [shell for shell in shells if shell != "SPACE"]
+            shells = [shell for shell in shells if shell != ("SPACE" or "NT")]
             print(shells)
 if __name__ == "__main__":
     main()
