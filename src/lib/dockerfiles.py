@@ -35,8 +35,29 @@ class Dockerfile(object):
                 RUN命令の中のSCの分割
             """
             def check_by_regex(contents):
-                return bool(re.search(r"[a-zA-Z]", contents)) or \
-                       bool(re.search(r"[0-9]", contents))
+                if contents == "|":
+                    return True
+                elif contents == "||":
+                    return True
+                elif contents == ">":
+                    return True
+                elif contents == ">>":
+                    return True
+                elif contents == "[":
+                    return True
+                elif contents == "]":
+                    return True
+                elif contents == "(":
+                    return True
+                elif contents == ")":
+                    return True
+                elif contents == "{":
+                    return True
+                elif contents == "}":
+                    return True
+                else:
+                    return bool(re.search(r"[a-zA-Z]", contents)) or \
+                        bool(re.search(r"[0-9]", contents))
             
             def split_option(tokens):
                 tokens = list(tokens)
@@ -48,16 +69,28 @@ class Dockerfile(object):
             # method-chainの共通化
             scripts = re.sub(";", " AND ", scripts)
             scripts = re.sub("&&", " AND ", scripts)
+
             tokens = ["RUN"] + [token.lstrip().rstrip() for token in scripts.split()]
-            tokens = [token for token in tokens if check_by_regex(token)]
-            # オプションの分割については一旦は無視
-            # res = []
-            # for token in tokens:
-            #     if token[0] == "-" and token[1] != "-":
-            #         options = split_option(token)
-            #         res.extend(options)
-            #     else:
-            #         res.append(token)
+
+            """
+                ${} $()の処理を施す
+            """
+
+
+            tokens = [token.replace("[", " [ ") for token in tokens]
+            tokens = [token.replace("]", " ] ") for token in tokens]
+            tokens = [token.replace("(", " ( ") for token in tokens]
+            tokens = [token.replace(")", " ) ") for token in tokens]
+            tokens = [token.replace("{", " { ") for token in tokens]
+            tokens = [token.replace("}", " } ") for token in tokens]
+            # tokens = [token.lstrip().rstrip() for token in scripts.split()]
+
+            sec_tokens = []
+            for token in tokens:
+                comps = [comp.lstrip().rstrip() for comp in token.split()]
+                sec_tokens.extend(comps)
+            tokens = [token for token in sec_tokens if check_by_regex(token)]
+
             return tokens
 
 
@@ -80,15 +113,14 @@ class Dockerfile(object):
         """
         return [comp for comp in self._commands if comp[0] == "RUN"]
     
-    def get_shell(self):
+    def get_shell_origin(self):
         """
             RUN命令の中のshellscriptを返すメソッド
         """
         res = []
         contents = [comp for comp in self._commands if comp[0] == "RUN"]
         for content in contents:
-            # content = [cnt for cnt in content if cnt != "NT"]
-            # content = [cnt for cnt in content if cnt != "NL"]
+
             comps = []
             comp = []
             comps.append(content.pop(0))
@@ -102,7 +134,7 @@ class Dockerfile(object):
             res.append(comps)
         return res
     
-    def get_shell_2(self):
+    def get_shell(self):
         """
             RUN命令の中のshellscriptを返すメソッド
             インデントを考慮している

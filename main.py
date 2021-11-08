@@ -26,22 +26,26 @@ def main():
     words = []
     file_path = "./python/3.10/bullseye/slim/Dockerfile"
     dock = Dockerfile(file_path)
-    contents = dock.get_shell_2()
+    contents = dock.get_shell()
     for content in contents:
+        print(content)
         for comps in content:
-            print()
-            print("===============================")
-            print("comps", comps)
-            for comp in comps:
-                token = Token(comp)
-                if len(token.original) > 1:
-                    print()
+            kinds = []
+            if type(comps) is list:
+                print()
+                print("===============================")
+                
+                print("comps", comps)
+                for comp in comps:
+                    token = Token(comp)
                     print("original", token.original)
-                    print("extentions", token.extentions)
-                    print("kinds", token.kinds)
-                    print("subs", token.subs)
-            print("===============================")
-            print()
+                    # print("extentions", token.extentions)
+                    # print("kinds", token.kinds)
+                    # print("subs", token.subs)
+                    kinds.append(token.kinds)
+                print("kinds", kinds)
+                print("===============================")
+                print()
 
 
 

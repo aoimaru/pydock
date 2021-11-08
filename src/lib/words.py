@@ -57,6 +57,39 @@ class Token(object):
                         self._kinds = "SUB"
                     else:
                         self._kinds = "FILE"
+        
+        if self._original == "NT":
+            self._kinds = "NT"
+        
+        if self._original == "[":
+            self._kinds = "[LEFT]"
+        
+        if self._original == "]":
+            self._kinds = "[RIGHT]"
+        
+        if self._original == "(":
+            self._kinds = "(LEFT)"
+        
+        if self._original == ")":
+            self._kinds = "(RIGHT)"
+        
+        if self._original == "{":
+            self._kinds = "{LEFT}"
+        
+        if self._original == "}":
+            self._kinds = "{RIGHT}"
+        
+        if self._original == "|":
+            self._kinds = "PIPE1"
+        
+        if self._original == "||":
+            self._kinds = "PIPE2"
+        
+        if self._original == ">":
+            self._kinds = "REDIRECT1"
+        
+        if self._original == ">>":
+            self._kinds = "REDIRECT2"
             
     def change_kinds(self):
         pass
