@@ -291,26 +291,65 @@ class Model(object):
             scripts = re.sub(";", " AND ", scripts)
             scripts = re.sub("&&", " AND ", scripts)
             scripts = re.sub(" ", " SPACE ", scripts)
-            scripts = re.sub("\\(", " BACKLEFT ", scripts)
-            scripts = re.sub("\\)", " BACKRIGHT ", scripts)
-            
-            # scripts = re.sub("$(", " SUBLEFT ", scripts)
-            # scripts = re.sub(")'", " SUBRIGHT ", scripts)
-            # scripts = re.sub(')"', " SUBRIGHT ", scripts)
-
 
             tokens = ["RUN"] + [token.lstrip().rstrip() for token in scripts.split()]
             Res = []
-            # while tokens:
-            #     word = tokens.pop(0)
-            #     if bool(re.search(URL_RE_PATTERN, word)):
-            #         word = norm(word)
-            #         Res.append(word)
-            #     else:
-            #         if "$(" or "$[" or "${":
-            #             pass
+            while tokens:
+                word = tokens.pop(0)
+                if bool(re.search(URL_RE_PATTERN, word)):
+                    word = norm(word)
+                    Res.append(word)
+                else:
+                    if word == "\\(":
+                        word = "BACKLEFT"
+                        Res.append(word)
+                    elif word == "\\)":
+                        word = "BACKRIGHT"
+                        Res.append(word)
+                    elif word == "\\n":
+                        word = "BACKNT"
+                        Res.append(word)
+                    elif word == "(":
+                        word = "LEFT"
+                        Res.append(word)
+                    elif word == "[":
+                        word = "LEFT"
+                        Res.append(word)
+                    elif word == "{":
+                        word = "LEFT"
+                        Res.append(word)
+                    elif word == ")":
+                        word = "RIGHT"
+                        Res.append(word)
+                    elif word == "]":
+                        word = "RIGHT"
+                        Res.append(word)
+                    elif word == "}":
+                        word = "RIGHT"
+                        Res.append(word)
+                    else:
+                        if "$(" or "$[" or "${" in word:
+                            word = word.replace("$(", " SUBLEFT ")
+                            word = word.replace("$[", " SUBLEFT ")
+                            word = word.replace("${", " SUBLEFT ")
+                        if ")'" or ')"' in word:
+                            word = word.replace(")'" , " SUBRIGHT ")
+                            word = word.replace(')"', " SUBRIGHT ")
 
-            return tokens
+                        words = word.split()
+                        for word in words:
+                            word = norm(word)
+                            backs = []
+                            if word == "{}":
+                                Res.append(word)
+                            elif word.endswith(")") or word.endswith("]") or word.endswith("}"):
+                                Res.append(word[:-1])
+                                Res.append("SUBRIGHT")
+                            else:
+                                Res.append(word)
+
+            Res = [norm(res) for res in Res]
+            return Res
 
 
         self._commands = []
@@ -323,6 +362,23 @@ class Model(object):
                 self._commands.append([content.cmd]+list(content.value))
             else:
                 self._commands.append([content.cmd]+list(content.value[0]))
+        
+        self._runs = []
+        for command in self._commands:
+            com = command.pop(0)
+            if com == "RUN":
+                Req = []
+                comp = []
+                while command:
+                    word = command.pop(0)
+                    if word == "AND":
+                        Req.append(comp)
+                        comp = []
+                    else:
+                        comp.append(word)
+                self._runs.append(Req)
+
+
 
     @property
     def contents(self):
@@ -331,15 +387,23 @@ class Model(object):
     @property
     def commands(self):
         return self._commands
+    
+    @property
+    def runs(self):
+        return self._runs
 
 
 
 def main():
     file_path = "../../python/3.10/bullseye/slim/Dockerfile"
+    # file_path = "../../Others/Dockerfile"
     model = Model(file_path)
     commands = model.commands
-    for command in commands:
-        print(command)
-
+    runs = model.runs
+    for run in runs:
+        print()
+        for shells in run:
+            shells = [shell for shell in shells if shell != "SPACE"]
+            print(shells)
 if __name__ == "__main__":
     main()
