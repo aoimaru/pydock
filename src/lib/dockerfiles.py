@@ -263,3 +263,83 @@ class Dockerfile(object):
 class Indent(object):
     def __init__(self, file_path):
         pass
+
+
+URL_RE_PATTERN = "https?://[^/]+/"
+
+class Model(object):
+    def __init__(self, file_path):
+        self._contents = dockerfile.parse_file(file_path)
+
+        def norm(token):
+            """
+                "とか'を削除
+            """
+            if token.startswith('"'):
+                token = token[1:]
+            if token.endswith('"'):
+                token = token[:-1]
+            if token.startswith("'"):
+                token = token[1:]
+            if token.endswith("'"):
+                token = token[:-1]
+            return token
+
+        def method_chain(scripts):
+            scripts = re.sub("\n", " NL ", scripts)
+            scripts = re.sub("\t", " NT ", scripts)
+            scripts = re.sub(";", " AND ", scripts)
+            scripts = re.sub("&&", " AND ", scripts)
+            scripts = re.sub(" ", " SPACE ", scripts)
+            scripts = re.sub("\\(", " BACKLEFT ", scripts)
+            scripts = re.sub("\\)", " BACKRIGHT ", scripts)
+            
+            # scripts = re.sub("$(", " SUBLEFT ", scripts)
+            # scripts = re.sub(")'", " SUBRIGHT ", scripts)
+            # scripts = re.sub(')"', " SUBRIGHT ", scripts)
+
+
+            tokens = ["RUN"] + [token.lstrip().rstrip() for token in scripts.split()]
+            Res = []
+            # while tokens:
+            #     word = tokens.pop(0)
+            #     if bool(re.search(URL_RE_PATTERN, word)):
+            #         word = norm(word)
+            #         Res.append(word)
+            #     else:
+            #         if "$(" or "$[" or "${":
+            #             pass
+
+            return tokens
+
+
+        self._commands = []
+        for content in self._contents:
+            if content.cmd == "RUN":
+                self._commands.append(method_chain(content.value[0]))
+            elif content.cmd == "ENV" or "COPY" or "ADD" or "ARG" or "VOLUME":
+                self._commands.append([content.cmd]+list(content.value[:2]))
+            elif content.cmd == "CMD" or "ENTRYPOINT":
+                self._commands.append([content.cmd]+list(content.value))
+            else:
+                self._commands.append([content.cmd]+list(content.value[0]))
+
+    @property
+    def contents(self):
+        return self._contents
+    
+    @property
+    def commands(self):
+        return self._commands
+
+
+
+def main():
+    file_path = "../../python/3.10/bullseye/slim/Dockerfile"
+    model = Model(file_path)
+    commands = model.commands
+    for command in commands:
+        print(command)
+
+if __name__ == "__main__":
+    main()
