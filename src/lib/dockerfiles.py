@@ -293,10 +293,11 @@ class Model(object):
             scripts = re.sub(" ", " SPACE ", scripts)
             scripts = re.sub("\\(", " BACKLEFT ", scripts)
             scripts = re.sub("\\)", " BACKRIGHT ", scripts)
-            
+
             # scripts = re.sub("$(", " SUBLEFT ", scripts)
             # scripts = re.sub(")'", " SUBRIGHT ", scripts)
             # scripts = re.sub(')"', " SUBRIGHT ", scripts)
+
 
 
             tokens = ["RUN"] + [token.lstrip().rstrip() for token in scripts.split()]
