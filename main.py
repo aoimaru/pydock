@@ -40,15 +40,24 @@ def main():
         model = Model(file_path)
         shells = model.shells
 
+        db = []
         for shell in shells:
-            print()
-            print(shell)
+            # print()
+            # print(shell)
             kinds = [Token(word).kinds for word in shell]
-            print(kinds)
+            # print(kinds)
+            db.append(kinds)
 
-        # ps = PrefixSpan(shells)
+        # ps = PrefixSpan(db)
+        # results = {}
         # for result in ps.frequent(2):
-            # print(result)
+        #     key = " ".join(result[1])
+        #     results[key] = result[0]
+        
+        # comps = sorted(results.items(), key=lambda x:x[1], reverse=True)
+        # for comp in comps:
+        #     if comp[1] > 10:
+        #         print(comp)
 
         # for run in runs:
         #     print()
