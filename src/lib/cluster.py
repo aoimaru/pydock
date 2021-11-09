@@ -1,5 +1,6 @@
 
 
+
 class Dived(object):
     @staticmethod
     def mask(shells: list):
