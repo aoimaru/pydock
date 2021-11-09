@@ -90,6 +90,35 @@ class Token(object):
         
         if self._original == ">>":
             self._kinds = "REDIRECT2"
+
+        if self._original == "SPACE":
+            self._kinds = "SPACE"
+        
+        if self._original == "BACKLEFT":
+            self._kinds = "BACKLEFT"
+        
+        if self._original == "BACKRIGHT":
+            self._kinds = "BACKRIGHT"
+        
+        if self._original == "BACKNT":
+            self._kinds = "BACKNT"
+        
+        if self._original == "LEFT":
+            self._kinds = "LEFT"
+        
+        if self._original == "RIGHT":
+            self._kinds = "RIGHT"
+        
+        if self._original == "SUBLEFT":
+            self._kinds = "SUBLEFT"
+        
+        if self._original == "SUBRIGHT":
+            self._kinds = "SUBRIGHT"
+        
+        if self._original.startswith("sha256="):
+            self._kinds = "SHA256"
+
+        
             
     def change_kinds(self):
         pass

@@ -41,7 +41,10 @@ def main():
         shells = model.shells
 
         for shell in shells:
+            print()
             print(shell)
+            kinds = [Token(word).kinds for word in shell]
+            print(kinds)
 
         # ps = PrefixSpan(shells)
         # for result in ps.frequent(2):
