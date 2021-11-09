@@ -383,6 +383,7 @@ class Model(object):
             self._shells.append([])
             for shells in run:
                 shells = [shell for shell in shells if shell != "SPACE"]
+                shells = [shell for shell in shells if shell != "NT"]
                 shells = [shell.replace("(", "") for shell in shells]
                 shells = [shell.replace("(", "") for shell in shells]
                 shells = [shell.replace(")", "") for shell in shells]
@@ -393,7 +394,8 @@ class Model(object):
                 shells = [shell.replace("]", "") for shell in shells]
 
                 shells = [shell.replace("\\n", "BACKNT") for shell in shells]
-
+                
+                
                 shells = [norm(shell) for shell in shells]
                 shells = [shell for shell in shells if shell]
                 self._shells.append(shells)

@@ -54,7 +54,7 @@ def main():
         #         shells = [shell.replace("[", "") for shell in shells]
         #         shells = [shell.replace("]", "") for shell in shells]
         #         shells = [shell.replace("]", "") for shell in shells]
-
+ 
         #         shells = [shell.replace("\\n", "BACKNT") for shell in shells]
 
         #         shells = [norm(shell) for shell in shells]
