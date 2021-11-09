@@ -381,7 +381,7 @@ class Model(object):
 
         self._shells = []
         for run in self._runs:
-            # self._shells.append([])
+            self._shells.append([])
             for shells in run:
                 shells = [shell for shell in shells if shell != "SPACE"]
                 shells = [shell for shell in shells if shell != "NT"]
@@ -398,7 +398,8 @@ class Model(object):
 
                 shells = [norm(shell) for shell in shells]
                 shells = [shell for shell in shells if shell]
-                self._shells.append(shells)
+                if shells:
+                    self._shells.append(shells)
 
 
     @property

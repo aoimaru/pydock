@@ -13,6 +13,8 @@ from prefixspan import PrefixSpan
 from src.lib.dockerfiles import Dockerfile, Model
 from src.lib.nlps import NLP
 from src.lib.words import Token
+from src.lib.cluster import Dived
+from src.lib.blocks import Hash
 
 
 
@@ -40,11 +42,16 @@ def main():
         model = Model(file_path)
         shells = model.shells
 
-        db = []
         for shell in shells:
-            # print()
+            print()
             print(shell)
-            kinds = [Token(word).kinds for word in shell]
+            hash_words = Hash.execute(shell)
+            for key, value in hash_words.items():
+                print(key, value)
+            # kinds = [Token(word).kinds for word in shell]
+
+
+
             # print(kinds)
             # db.append(kinds)
 
