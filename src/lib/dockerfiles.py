@@ -270,7 +270,7 @@ URL_RE_PATTERN = "https?://[^/]+/"
 class Model(object):
     def __init__(self, file_path):
         self._contents = dockerfile.parse_file(file_path)
-
+        # トークンの正規化
         def norm(token):
             """
                 "とか'を削除
@@ -284,8 +284,11 @@ class Model(object):
             if token.endswith("'"):
                 token = token[:-1]
             return token
-
+        # メソッドチェーンやトークン, スペース, 改行コードの正規化
         def method_chain(scripts):
+            """
+                メソッドチェーンの分割やスペース, 改行コードの正規化
+            """
             scripts = re.sub("\n", " NL ", scripts)
             scripts = re.sub("\t", " NT ", scripts)
             scripts = re.sub(";", " AND ", scripts)
