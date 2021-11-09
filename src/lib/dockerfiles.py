@@ -257,8 +257,6 @@ class Dockerfile(object):
     def commands(self):
         return self._commands
 
-    
-
 
 class Indent(object):
     def __init__(self, file_path):
@@ -383,9 +381,10 @@ class Model(object):
 
         self._shells = []
         for run in self._runs:
-            self._shells.append([])
+            # self._shells.append([])
             for shells in run:
                 shells = [shell for shell in shells if shell != "SPACE"]
+                shells = [shell for shell in shells if shell != "NT"]
                 shells = [shell.replace("(", "") for shell in shells]
                 shells = [shell.replace("(", "") for shell in shells]
                 shells = [shell.replace(")", "") for shell in shells]

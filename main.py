@@ -18,6 +18,7 @@ from src.lib.words import Token
 
 
 PYTHON_PROJECT = "./python/**"
+GOLANG_PROJECT = "./golang/**"
 OTHERS = "./Others/**"
 
 def norm(token):
@@ -33,7 +34,7 @@ def norm(token):
 
 def main():
     combinations = {}
-    file_paths = [comp for comp in glob.glob(PYTHON_PROJECT, recursive=True) if os.path.isfile(comp) if comp.endswith("Dockerfile")]
+    file_paths = [comp for comp in glob.glob(GOLANG_PROJECT, recursive=True) if os.path.isfile(comp) if comp.endswith("Dockerfile")]
     words = []
     for file_path in file_paths:
         model = Model(file_path)
@@ -41,6 +42,10 @@ def main():
 
         for shell in shells:
             print(shell)
+
+        # ps = PrefixSpan(shells)
+        # for result in ps.frequent(2):
+            # print(result)
 
         # for run in runs:
         #     print()
