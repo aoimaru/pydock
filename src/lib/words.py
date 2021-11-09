@@ -115,11 +115,15 @@ class Token(object):
         if self._original == "SUBRIGHT":
             self._kinds = "SUBRIGHT"
         
-        if self._original.startswith("sha256="):
+        if self._original.startswith("sha256") and self._original != "sha256sum":
             self._kinds = "SHA256"
 
+        if "='" in self._original or '="' in self._original:
+            self._kinds = "ENVS"
         
-            
+        if self._original.startswith("C:") or "\\" in self._original:
+            self._kinds = "WINFILE"
+              
     def change_kinds(self):
         pass
 

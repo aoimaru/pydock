@@ -43,10 +43,10 @@ def main():
         db = []
         for shell in shells:
             # print()
-            # print(shell)
+            print(shell)
             kinds = [Token(word).kinds for word in shell]
             # print(kinds)
-            db.append(kinds)
+            # db.append(kinds)
 
         # ps = PrefixSpan(db)
         # results = {}
