@@ -20,16 +20,19 @@ from gensim.models import word2vec
 
 import datetime
 
-def execute(key):
+def execute():
     try:
+        print(data["dcdc06206343aa7476046a5897e11abc9276f1766fb6cdcd900119830b32cf2b"])
         model = word2vec.Word2Vec.load("./Delivers/result.model")
-        result = model.wv.similarity("dcdc06206343aa7476046a5897e11abc9276f1766fb6cdcd900119830b32cf2b", key)
-        # result = model.wv.most_similar("dcdc06206343aa7476046a5897e11abc9276f1766fb6cdcd900119830b32cf2b", topn=10)
-        # print("rm", data[key], result)
+        # result = model.wv.similarity("dcdc06206343aa7476046a5897e11abc9276f1766fb6cdcd900119830b32cf2b", key)
+        results = model.wv.most_similar("dcdc06206343aa7476046a5897e11abc9276f1766fb6cdcd900119830b32cf2b", topn=30)
+        
+        # for result in results:
+        #     print("rm", data[key], result)
     except Exception as e:
         return 0
     else:
-        return result
+        return results
 
 def sub(key):
     return data[key]
@@ -55,25 +58,30 @@ def main():
     
     results = {}
 
-    for key, value in data.items():
-        if value == "-rf":
-            nh0 = [h for h in hh if key in h][0]
-            command0 = [sub(n) for n in nh0]
-            print(command0)
-            try:
-                nh1 = [h for h in hh if key in h][1]
-            except:
-                pass
-            else:
-                command1 = [sub(n) for n in nh1]
-                print(command1)
+    # for key, value in data.items():
+        # if value == "-rf":
+        #     nh0 = [h for h in hh if key in h][0]
+        #     command0 = [sub(n) for n in nh0]
+        #     print(command0)
+        #     try:
+        #         nh1 = [h for h in hh if key in h][1]
+        #     except:
+        #         pass
+        #     else:
+        #         command1 = [sub(n) for n in nh1]
+        #         print(command1)
+
+    for comp in execute():
+        print()
+        # print(comp)
+        nh = [h for h in hh if comp[0] in h][0]
+        # print(nh)
+        command = [sub(n) for n in nh]
+        # print(command)
+        print(sub(comp[0]), comp[1])
             
 
-        
-
-
-      
-        # results[value] = execute(key) 
+   
 
 
             
