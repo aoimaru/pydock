@@ -46,15 +46,20 @@ def main():
         shells = model.shells
 
         for shell in shells:
-            print()
-            print(shell)
+            # print()
+            # print(shell)
             # hash_words = Hash.execute(shell)
             # data.append([cnt for cnt in hash_words])
             # for key, value in hash_words.items():
             #     print(key, value)
             # kinds = [Token(word).kinds for word in shell]
+            if shell:
+                data.append(shell)
+    
+    # for comp in data:
+    #     print(comp)
 
-    # create_model(data)
+    create_model(data)
 
 
 
