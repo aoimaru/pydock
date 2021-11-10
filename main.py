@@ -54,7 +54,7 @@ def main():
                 print(key, value)
             # kinds = [Token(word).kinds for word in shell]
 
-    create_model(data)
+    # create_model(data)
 
 
 
