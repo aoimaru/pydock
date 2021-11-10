@@ -67,6 +67,7 @@ def main():
             else:
                 command1 = [sub(n) for n in nh1]
                 print(command1)
+            print(execute(key), value)
             
 
         
