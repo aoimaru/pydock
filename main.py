@@ -45,7 +45,9 @@ def main():
 
     results = {}
     query = ['apt-get', 'install', '-y', '--no-install-recommends', 'uuid-dev']
-    query = ['find', '/usr/local', '-depth', 'BACKLEFT', 'BACKLEFT', '-type', 'd', '-a', 'BACKLEFT']
+    query = ['apt-get', 'install', '-y', '--no-install-recommends']
+    # query = ['find', '/usr/local', '-depth', 'BACKLEFT', 'BACKLEFT', '-type', 'd', '-a', 'BACKLEFT']
+    query = ["rm", "-rf"]
     # hash_query = Hash.execute(query)
     # query = [cnt for cnt in hash_query]
     print(query)
