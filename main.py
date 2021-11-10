@@ -35,8 +35,7 @@ def main():
             print()
             print(shell)
             hash_words = Hash.execute(shell)
-            for key, value in hash_words.items():
-                print(key, value)
+            
             # kinds = [Token(word).kinds for word in shell]
 
 
