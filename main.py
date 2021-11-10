@@ -20,7 +20,7 @@ from src.lib.zlibs import Zlib
 from gensim.models import word2vec
 
 import datetime
-
+import time
 
 PYTHON_PROJECT = "./python/**"
 GOLANG_PROJECT = "./golang/**"
@@ -63,14 +63,20 @@ def main():
         shells = model.shells
         for shell in shells:
             shell_words = "".join(shell)
-            if query in shell_words:
-                print(shell)
+            data.append(shell_words)
+            # if query in shell_words:
+            #     print(shell)
             # shell_dict = Hash.execute(shell)
             # data.append([cnt for cnt in shell_dict])
             # for key, value in shell_dict.items():
             #     if not key in maps:
             #         maps[key] = value
-    
+    start = time.time()
+    for word in data:
+        if query in word:
+            print(word)
+    proc = time.time()-start
+    print("計測時間:", proc)
     # for shell_hash in data:
     #     if query[-1] in shell_hash:
     #         shell = [maps[sh] for sh in shell_hash]
