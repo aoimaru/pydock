@@ -48,10 +48,10 @@ def main():
         for shell in shells:
             print()
             print(shell)
-            hash_words = Hash.execute(shell)
-            data.append([cnt for cnt in hash_words])
-            for key, value in hash_words.items():
-                print(key, value)
+            # hash_words = Hash.execute(shell)
+            # data.append([cnt for cnt in hash_words])
+            # for key, value in hash_words.items():
+            #     print(key, value)
             # kinds = [Token(word).kinds for word in shell]
 
     # create_model(data)
