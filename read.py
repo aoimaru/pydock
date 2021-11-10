@@ -20,12 +20,12 @@ from gensim.models import word2vec
 
 import datetime
 
-def execute():
+def execute(key):
     try:
-        print(data["dcdc06206343aa7476046a5897e11abc9276f1766fb6cdcd900119830b32cf2b"])
+        # print(data["dcdc06206343aa7476046a5897e11abc9276f1766fb6cdcd900119830b32cf2b"])
         model = word2vec.Word2Vec.load("./Delivers/result.model")
-        # result = model.wv.similarity("dcdc06206343aa7476046a5897e11abc9276f1766fb6cdcd900119830b32cf2b", key)
-        results = model.wv.most_similar("dcdc06206343aa7476046a5897e11abc9276f1766fb6cdcd900119830b32cf2b", topn=30)
+        results = model.wv.similarity("rm", key)
+        # results = model.wv.most_similar("rm", topn=30)
         
         # for result in results:
         #     print("rm", data[key], result)
@@ -48,37 +48,10 @@ def main():
         model = Model(file_path)
         shells = model.shells
 
-        for shell in shells:
-            hash_words = Hash.execute(shell)
-            if not [cnt for cnt in hash_words] in hh:
-                hh.append([cnt for cnt in hash_words])
-            for key, value in hash_words.items():
-                if not key in data:
-                    data[key] = value
     
-    results = {}
-
-    # for key, value in data.items():
-        # if value == "-rf":
-        #     nh0 = [h for h in hh if key in h][0]
-        #     command0 = [sub(n) for n in nh0]
-        #     print(command0)
-        #     try:
-        #         nh1 = [h for h in hh if key in h][1]
-        #     except:
-        #         pass
-        #     else:
-        #         command1 = [sub(n) for n in nh1]
-        #         print(command1)
-
-    for comp in execute():
-        print()
-        # print(comp)
-        nh = [h for h in hh if comp[0] in h][0]
-        # print(nh)
-        command = [sub(n) for n in nh]
-        # print(command)
-        print(sub(comp[0]), comp[1])
+    results = execute("-rf")
+    # for result in results:
+    print(results)
             
 
    
