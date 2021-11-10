@@ -15,6 +15,7 @@ from src.lib.nlps import NLP
 from src.lib.words import Token
 from src.lib.cluster import Dived
 from src.lib.blocks import Hash
+from src.lib.zlibs import Zlib
 
 from gensim.models import word2vec
 
@@ -36,25 +37,41 @@ def create_model(data):
     model.save("./Delivers/result.model")
 
 
+
+
 def main():
     combinations = {}
     file_paths = [comp for comp in glob.glob(PYTHON_PROJECT, recursive=True) if os.path.isfile(comp) if comp.endswith("Dockerfile")]
 
-    data = []
+    results = {}
+    query = ['apt-get', 'install', '-y', '--no-install-recommends', 'uuid-dev']
+    # query = ["rm", "-rf"]
+    # hash_query = Hash.execute(query)
+    # query = [cnt for cnt in hash_query]
+    print(query)
     for file_path in file_paths:
         model = Model(file_path)
         shells = model.shells
-
         for shell in shells:
-            print()
-            print(shell)
-            hash_words = Hash.execute(shell)
-            data.append([cnt for cnt in hash_words])
-            for key, value in hash_words.items():
-                print(key, value)
-            # kinds = [Token(word).kinds for word in shell]
-
-    # create_model(data)
+            # shell_dict = Hash.execute(shell)
+            # data = [cnt for cnt in shell_dict]
+            # print(data)
+            result = Zlib.ncd(query, shell)
+            print(result, ":", shell)
+            results[" ".join(shell)] = result
+    
+    results = sorted(results.items(), key=lambda x:x[1])
+    for result in results[:10]:
+        print(result)
+                
+    
+    
+    # for comp in data:
+    #     print(data)
+        # result = Zlib.ncd(query, data)
+        # print(result)
+            
+            
 
 
 
@@ -62,7 +79,3 @@ def main():
 if __name__ == "__main__":
     main()
 
-# ps = PrefixSpan(contents)
-
-    # for comp in ps.topk(100):
-    #     print(comp)
