@@ -20,7 +20,7 @@ from src.lib.zlibs import Zlib
 from gensim.models import word2vec
 
 import datetime
-
+import time
 
 PYTHON_PROJECT = "./python/**"
 GOLANG_PROJECT = "./golang/**"
@@ -67,10 +67,13 @@ def main():
                 if not key in maps:
                     maps[key] = value
     
+    start = time.time()
     for shell_hash in data:
         if query[-1] in shell_hash:
             shell = [maps[sh] for sh in shell_hash]
             print(shell)
+    proc = time.time()-start
+    print("検索時間:", proc)
 
             
 
