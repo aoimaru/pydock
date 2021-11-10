@@ -64,6 +64,7 @@ def main():
         for shell in shells:
             shell_words = "".join(shell)
             data.append(shell_words)
+            maps[shell_words] = shell
             # if query in shell_words:
             #     print(shell)
             # shell_dict = Hash.execute(shell)
@@ -74,7 +75,7 @@ def main():
     start = time.time()
     for word in data:
         if query in word:
-            print(word)
+            print(maps[word])
     proc = time.time()-start
     print("計測時間:", proc)
     # for shell_hash in data:
