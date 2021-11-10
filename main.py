@@ -43,7 +43,7 @@ def main():
     data = []
     for file_path in file_paths:
         model = Model(file_path)
-        shells = model.shells
+        shells = model.runs
 
         for shell in shells:
             print()
