@@ -24,6 +24,7 @@ def execute(key):
     try:
         model = word2vec.Word2Vec.load("./Delivers/result.model")
         result = model.wv.similarity("dcdc06206343aa7476046a5897e11abc9276f1766fb6cdcd900119830b32cf2b", key)
+        # result = model.wv.most_similar("dcdc06206343aa7476046a5897e11abc9276f1766fb6cdcd900119830b32cf2b", topn=10)
         # print("rm", data[key], result)
     except Exception as e:
         return 0
@@ -67,7 +68,7 @@ def main():
                 command1 = [sub(n) for n in nh1]
                 print(command1)
             
-            print("result", execute(key))
+
         
 
 
