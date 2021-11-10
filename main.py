@@ -47,11 +47,11 @@ def main():
     print(len(file_paths))
     results = {}
     query = ['apt-get', 'install', '-y', '--no-install-recommends']
-    query = ["ln", "-s"]
-    query = ["./configure"]
-    query = ["mkdir", "-p"]
-    query = ["set", "-ex"]
-    query = ["find", "/usr/local", "-depth"]
+    # query = ["ln", "-s"]
+    # query = ["./configure"]
+    # query = ["mkdir", "-p"]
+    # query = ["set", "-ex"]
+    # query = ["find", "/usr/local", "-depth"]
     # hash_query = Hash.execute(query)
     # query = [cnt for cnt in hash_query]
     query = "".join(query)
