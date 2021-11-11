@@ -44,10 +44,10 @@ def main():
     file_paths = [comp for comp in glob.glob(PYTHON_PROJECT, recursive=True) if os.path.isfile(comp) if comp.endswith("Dockerfile")]
 
     results = {}
-    query = ['apt-get', 'install', '-y', '--no-install-recommends', 'uuid-dev']
+    # query = ['apt-get', 'install', '-y', '--no-install-recommends', 'uuid-dev']
     query = ['apt-get', 'install', '-y', '--no-install-recommends']
     # query = ['find', '/usr/local', '-depth', 'BACKLEFT', 'BACKLEFT', '-type', 'd', '-a', 'BACKLEFT']
-    query = ["rm", "-rf"]
+    # query = ["rm", "-rf"]
     # hash_query = Hash.execute(query)
     # query = [cnt for cnt in hash_query]
     print(query)
@@ -59,13 +59,16 @@ def main():
             # data = [cnt for cnt in shell_dict]
             # print(data)
             result = Zlib.ncd(query, shell)
-            print(result, ":", shell)
+            # print(result, ":", shell)
             results[" ".join(shell)] = result
     
-    results = sorted(results.items(), key=lambda x:x[1])
-    for result in results[:10]:
-        print(result)
-                
+    # results = sorted(results.items(), key=lambda x:x[1])
+    # for result in results[:10]:
+    #     print(result)
+    
+    for key, value in results.items():
+        if value < 0.50:
+            print(value, key)
     
     
     # for comp in data:
